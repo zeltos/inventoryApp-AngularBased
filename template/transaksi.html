@@ -32,7 +32,12 @@
 							<td>{{ d.nama_produk }}</td>
 							<td>{{ d.harga | currency:"Rp ":0 }}</td>
 							<td>{{ d.stok  }}</td>
-							<td><ngcart-addtocart id="{{ d.idproduk }}" name="{{ d.nama_produk }}" price="{{ d.harga }}" quantity="1" quantity-max="{{ d.stok }}" data="item" stok="{{ d.stok }}"></ngcart-addtocart></td>
+							<td>
+								<a class="btn btn-default" ng-click="ngCart.addItem(d.idproduk, d.nama_produk, d.harga, 1, item)" ng-disabled="ngCart.getItemById(d.idproduk) || d.stok == 0"> 
+						        	<span ng-if="d.stok > 0"><i class="fa fa-cart-plus"></i> Buy </span>
+						        	<span ng-if="d.stok == 0"><i class="fa fa-close"></i> Out of Stock</span>
+						        </a> 
+							</td>
 						</tr>
 					</table>
 					<dir-pagination-controls class="pull-right" boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="template/paging/dirPagination.tpl.html"></dir-pagination-controls>

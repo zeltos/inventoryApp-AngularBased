@@ -40,7 +40,7 @@ angular.module('ngCart', ['ngCart.directives'])
                     $rootScope.loader = false;      
                     $rootScope.data= data;
                     $rootScope.rowdata= $rootScope.data.length;
-                    $rootScope.$apply();
+                    // $rootScope.$apply();
                 });
             }).error(function(data, status,headers, config) {
                 alert('gagal terhubung ke server');
@@ -73,6 +73,10 @@ angular.module('ngCart', ['ngCart.directives'])
 
             $rootScope.$broadcast('ngCart:change', {});
         };
+
+        // this.inCart = function(){
+        //     return  ngCart.getItemById(attrs.id);
+        // };
 
         this.getItemById = function (itemId) {
             var items = this.getCart().items;
