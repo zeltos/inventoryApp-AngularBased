@@ -1,0 +1,47 @@
+<div class="cover">
+	<div class="container">
+		<h1>List All of Transaksi</h1>
+		<hr>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="">Search Your items</label>
+					<input type="text" class="form-control" ng-model="search" placeholder="Enter Keywords Here...">
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="pull-right">
+					<div class="form-group">
+						<label for="">Showing items</label>
+						<select name="" id="" ng-model="pageSize" ng-init="pageSize" class="form-control" ng-options="p.showPage as p.showPage for p in sizePaging">						
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+		<table class="table table-striped">
+			<tr>
+				<th>#id transaksi</th>
+				<th>Total items</th>
+				<th>Total Payment</th>
+				<th>Payment</th>
+				<th>Return Payment</th>
+				<th>Transaction Date</th>
+				<th></th>
+			</tr>
+			<tr dir-paginate="t in transaksi | filter:search | itemsPerPage: pageSize" current-page="currentPage">  
+				<td>{{ t.idtransaksi }}</td>
+				<td>{{ t.totalitems }}</td>
+				<td>{{ t.totalcost | currency:"Rp ":0  }}</td>
+				<td>{{ t.bayar | currency:"Rp ":0  }}</td>
+				<td>{{ t.kembali | currency:"Rp ":0  }}</td>
+				<td>{{ t.date | date }}</td>
+				<td><a href="#transaksi-list/detail/{{ t.idtransaksi }}" class="btn btn-primary">Transaction Detail</a></td>
+			</tr>
+		</table>
+		<hr>
+		<p class="pull-left"><b>Current page :</b> {{ currentPage }}</p>
+		<dir-pagination-controls class="pull-right" boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="template/paging/dirPagination.tpl.html"></dir-pagination-controls>
+	</div>
+
+</div>

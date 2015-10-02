@@ -1,0 +1,40 @@
+<div class="container">
+	<h1>Transaction ID <u>{{ transdetail[0].idtransaksi }}</u> Details </h1>
+	<div class="header-detail-transaction">
+		<p><b>Date :</b> {{ transdetail[0].date | date }}</p>		
+	</div>
+	<hr>
+	<p>Details Produk</p>
+	<table class="table table-striped">
+		<tr>
+			<th>id Produk</th>
+			<th>Product Name</th>
+			<th>Price</th>
+			<th>Quantity</th>
+			<th>Total</th>
+		</tr>
+		<tr ng-repeat="trans in transdetail">
+			<td>{{ trans.idproduk }}</td>
+			<td>{{ trans.nama_produk }}</td>
+			<td>{{ trans.harga | currency:"Rp ":0}}</td>
+			<td>{{ trans.quantity }}</td>
+			<td>{{ trans.harga * trans.quantity | currency:"Rp ":0}}</td>
+		</tr>
+		<tr>
+			<th colspan="3"></th>
+			<th>Total Payment</th>
+			<th>{{ transdetail[0].totalcost | currency:"Rp ":0 }}</th>
+		</tr>
+		<tr>
+			<th colspan="3"></th>
+			<th>Payment :</th>
+			<th>{{ transdetail[0].bayar | currency:"Rp ":0 }}</th>
+		</tr>
+		<tr>
+			<th colspan="3"></th>
+			<th>Return Payment :</th>
+			<th>{{ transdetail[0].kembali | currency:"Rp ":0 }}</th>
+		</tr>
+	</table>
+	<a href="#transaksi-list" class="btn btn-default"><i class="fa fa-chevron-left"></i> Back to Transaction list</a>
+</div>

@@ -1,0 +1,25 @@
+<div ng-hide="attrs.id">
+    <a class="btn btn-lg btn-primary" ng-disabled="true" ng-transclude></a>
+
+</div>
+<div ng-show="attrs.id">
+    <div>
+        <span ng-show="quantityMax">          
+      
+        <a class="btn btn-default"
+           ng-click="ngCart.addItem(id, name, price, q, data)"
+           ng-disabled="inCart() || attrs.stok == 0"
+           > 
+        <span ng-if="attrs.stok > 0">
+          <i class="fa fa-cart-plus"></i> Buy
+        </span>
+        <span ng-if="attrs.stok == 0">
+          <i class="fa fa-close"></i> Out of Stock
+        </span>
+           </a> 
+    </div>
+    <!-- <mark  ng-show="inCart()">
+        This item is in your cart. {{ ngCartItem.getQuantityById(id) }} <a ng-click="ngCart.removeItemById(id)" style="cursor: pointer;">Remove</a>
+    </mark> -->
+</div>        
+<!-- {{ attrs.stok }} -->

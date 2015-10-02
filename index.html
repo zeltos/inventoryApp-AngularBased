@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html ng-app="inventoryApp">
+<head>
+	<title>Inventory App</title>
+	<link rel="shortcut icon" href="images/favicon.png">	
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="plugin/angular-loading-bar/loading-bar.css">
+	<link rel="stylesheet" href="plugin/angular-chart/angular-chart.css">
+
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="angular-1.4.6/angular.js"></script>
+	<script type="text/javascript" src="angular-1.4.6/angular-route.min.js"></script>
+	<script type="text/javascript" src="angular-1.4.6/angular-animate.min.js"></script>
+	<script type="text/javascript" src="angular-1.4.6/angular-cookies.min.js"></script>
+	<script type="text/javascript" src="angular-1.4.6/angular-sanitize.min.js"></script>
+
+	<!-- Angular Module/Plugin -->
+	<script type="text/javascript" src="plugin/ngCart/ngCart.js"></script>
+	<script type="text/javascript" src="plugin/paging/dirPagination.js"></script>
+	<script type="text/javascript" src="plugin/angular-loading-bar/loading-bar.js"></script>
+	<script type="text/javascript" src="plugin/angular-chart/Chart.js"></script>
+	<script type="text/javascript" src="plugin/angular-chart/angular-chart.min.js"></script>
+
+
+	<script type="text/javascript" src="js/app.js"></script>
+
+	<!-- <base href="/inventoryApp/"> -->
+</head>
+<body ng-controller='ctrlApp'>
+	
+	<header class="sidebar" ng-if="$route.current.activetab !== 'login'">
+		<ul>
+			<li><a href="#/" ng-class="{active: $route.current.activetab == 'home'}"><span><i class="fa fa-home"></i> home</span></a></li>
+			<li><a href="#transaksi" ng-class="{active: $route.current.activetab == 'transaksi'}"><span><i class="fa fa-cart-plus"></i> Transaksi <span class="badge" ng-show="ngCart.getTotalItems() > 0">{{ ngCart.getTotalItems() }}</span></span> </a></li>
+			<li><a href="#transaksi-list" ng-class="{active: $route.current.activetab == 'transaksi-list'}"><span><i class="fa fa-tasks"></i> Transaksi List <span class="badge">{{ rowtrans }}</span></span></a></li>
+			<li><a href="#product" ng-class="{active: $route.current.activetab == 'product'}"><span><i class="fa fa-briefcase"></i> Product List <span class="badge">{{ rowdata }}</span></span></a></li>
+			<li><a href="#report" ng-class="{active: $route.current.activetab == 'report'}"> <span><i class="fa fa-file-text-o"></i> Report </span> </a></li>
+			<!-- <li><a ng-click="logout()"> <span><i class="fa fa-sign-out"></i> Logout </span> </a></li> -->
+		</ul>
+	</header>
+
+	<div id="content" class="main-content" ng-class="{'no-sidebar': $route.current.activetab == 'login'}">
+		<div class="main-bars" ng-if="$route.current.activetab !== 'login'">
+			<div class="container">
+				<p class="pull-left"><b>Welcome,</b> {{ profile[0].nama_lengkap }} ({{ profile[0].email }})</p>
+				<a ng-click="logout()" class="pull-right">Sign Out <i class="fa fa-sign-out"></i></a>
+			</div>
+		</div>
+		<div ng-view class="cover"></div>
+	</div>
+</body>
+</html>

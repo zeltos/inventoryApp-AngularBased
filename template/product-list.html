@@ -1,0 +1,76 @@
+<div href="" class="btn-circle" id="openForm">
+	<i class="fa fa-plus open-box" ng-click="openForm()"></i>
+	<div class="cover-form">
+		<i class="fa fa-close close-box" ng-click="closeForm()"></i>
+		<form role="form" ng-submit="addProduct()">
+			<h3><i class="fa fa-plus"></i> Add New Product</h3>
+			<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt</p>
+			<hr>
+			<div class="form-group">
+				<label for="">Name Product</label>
+				<input name="name" class="form-control" ng-model="productform.name" required  placeholder="e-mail address">
+			</div>
+			<div class="row">
+				<div class="col-md-6 col-xs-6" style="padding-right:5px;">
+					<div class="form-group">
+						<label for="">Price</label>
+						<input type="text" class="form-control" placeholder="price" name="price" ng-model="productform.price" required>
+					</div>
+				</div>
+				<div class="col-md-6 col-xs-6" style="padding-left:5px;">
+					<div class="form-group">
+						<label for="">Stock</label>
+						<input type="number" class="form-control" value="1" name="stock" ng-model="productform.stock" min="1" required>
+					</div>
+				</div>
+			</div>
+			<button type="submit" class="btn btn-success pull-right"><i class="fa fa-check"></i> Add Now</button>	
+		</form>		
+	</div>
+</div>
+<div class="cover">
+	<div class="container">
+		<div class="cover">
+			<h1 class="pull-left">List All of Products</h1>
+			<!-- <div class="pull-right"><button class="btn btn-success img-circle"><i class="fa fa-plus"></i></button></div> -->
+		</div>
+		<hr>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="">Search Your items</label>
+					<input type="text" class="form-control" ng-model="search" placeholder="Enter Keywords Here...">
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="pull-right">
+					<div class="form-group">
+						<label for="">Showing items</label>					
+						<select name="" id="" ng-model="pageSize" ng-init="pageSize" class="form-control" ng-options="p.showPage as p.showPage for p in sizePaging">						
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+		<table class="table table-hover">
+			<tr>
+				<th>#</th>
+				<th>Nama Produk</th>
+				<th>Harga Satuan</th>
+				<th>Stok</th>
+				<th></th>
+			</tr>
+			<tr dir-paginate="d in data | filter:search | itemsPerPage: pageSize " current-page="currentPage">  
+				<td>{{ d.idproduk }}</td>
+				<td>{{ d.nama_produk }}</td>
+				<td>{{ d.harga | currency:"Rp ":0 }}</td>
+				<td>{{ d.stok  }}</td>
+				<td><a href="#product/edit/{{ d.idproduk }}" class="btn btn-primary"><i class="fa fa-edit"></i> Edit</a> <a ng-click="deleteProduct(d.idproduk)" class="btn btn-default"><i class="fa fa-trash-o"></i></a></td>
+			</tr>
+		</table>
+		<hr>
+		<p class="pull-left"><b>Current page :</b> {{ currentPage }}</p>
+		<dir-pagination-controls class="pull-right" boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="template/paging/dirPagination.tpl.html"></dir-pagination-controls>
+	</div>
+
+</div>

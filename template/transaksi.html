@@ -1,0 +1,94 @@
+<div class="cover" ng-controller="CartController">
+	<div class="container">
+		<h1>Inventori Apps</h1>	
+		<hr>
+		<div class="row">
+			<div class="col-md-7">				
+				<div class="col-md-8">
+					<div class="form-group">
+						<label for="">Search Your items</label>
+						<input type="text" class="form-control" ng-model="search" placeholder="Enter Keywords Here...">
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<label for="">Showing items</label>					
+						<select name="" id="" ng-model="pageSize" ng-init="pageSize" class="form-control" ng-options="p.showPage as p.showPage for p in sizePaging">						
+						</select>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<table class="table table-striped">
+						<tr>
+							<th>#</th>
+							<th>Nama Produk</th>
+							<th>Harga Satuan</th>
+							<th>Stok</th>
+							<th></th>
+						</tr>
+
+						<tr dir-paginate="d in data | filter:search | itemsPerPage: pageSize " current-page="currentPage">
+							<td>{{ d.idproduk }}</td>
+							<td>{{ d.nama_produk }}</td>
+							<td>{{ d.harga | currency:"Rp ":0 }}</td>
+							<td>{{ d.stok  }}</td>
+							<td><ngcart-addtocart id="{{ d.idproduk }}" name="{{ d.nama_produk }}" price="{{ d.harga }}" quantity="1" quantity-max="{{ d.stok }}" data="item" stok="{{ d.stok }}"></ngcart-addtocart></td>
+						</tr>
+					</table>
+					<dir-pagination-controls class="pull-right" boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="template/paging/dirPagination.tpl.html"></dir-pagination-controls>
+				</div>
+				<div class="container-fluid" align="center" ng-if="loader">
+					<img src="images/loader.gif" alt="" style="display:inline-block; width:50px;">
+				</div>	
+			</div>
+			<div class="col-md-5">				
+				<h3>Kalkulasi Pembelanjaan</h3>
+				<p>You have <b>{{ ngCart.getTotalItems() }} <ng-pluralize count="ngCart.getTotalItems()" when="{1: 'item', 'other':'items'}"></ng-pluralize></b> to be count</p>
+				<table class="table">
+					<tr>
+						<th>Nama Produk</th>
+						<th>Harga</th>
+						<th>Quantity</th>
+						<th>Subtotal</th>
+						<th></th>
+					</tr>
+					<tr>
+						<td colspan="5" align="center" ng-show="ngCart.getTotalItems() === 0">You Haven't Selected item</td>
+					</tr>
+					<tr ng-repeat="item in ngCart.getCart().items track by $index">
+						<td>{{ item.getName() }}</td>
+						<td>{{ item.getPrice() | currency:"Rp ":0 }}</td>
+						<td><input type="number" class="form-control" ng-model="quan[$index]" value="{{ item.getQuantity() | number }}" style="width:60px;" ng-change="item.setQuantity(quan[$index])"></td>
+						<td>{{ item.getTotal() | currency:"Rp ":0 }}</td>
+						<td><button class="btn btn-default" ng-click="ngCart.removeItemById(item.getId())"><i class="fa fa-close"></i></button></td>
+					</tr>									
+
+					<tr>
+						<th></th>
+						<th></th>
+						<th>Total</th>
+						<td>{{ ngCart.totalCost() | currency:"Rp ":0 }}</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td colspan="3">
+							<input type="text" placeholder="Enter Payment" class="form-control" ng-model="ngCart.bayar" ng-model-options="{updateOn : 'change blur'}" format="currency" ng-disabled="ngCart.getTotalItems() == 0">
+						</td>
+					</tr>					
+					<tr>
+						<th></th>
+						<th></th>
+						<th>Kembalian</th>
+						<td>{{ ngCart.kembali()  | currency:"Rp ":0}}</td>
+						<td></td>
+					</tr>
+				</table>			
+				<ngcart-checkout service="http" settings="{ url:'http://localhost:2205/inventoryApp/server/checkout.php' }"></ngcart-checkout>
+			</div>
+			<div class="container-fluid">				
+			</div>
+		</div>
+	</div>
+</div>

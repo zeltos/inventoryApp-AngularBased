@@ -1,0 +1,29 @@
+<div class="cover">
+	<div class="container">
+		<h1>This is Report Page</h1>
+		<hr>
+		<p><b>Jumlah Pendapatan Perhari</b> selama 1 Minggu Terakhir</p>
+		{{ dateconvert }}
+		<div class="cover">
+			<div class="row">
+				<div class="col-md-8 col-xs-12">				
+					<canvas id="line" class="chart chart-line" chart-data="data"
+						  	chart-labels="labels" chart-legend="false" chart-series="series"
+						  	chart-click="onClick" >
+					</canvas> 
+				</div>
+				<div class="col-md-4 col-xs-12" ng-controller="PieCtrl">
+					<div class="cover" >
+						<div class="cover with-border" style="padding:32px 0px;">
+							<h3 align="center">Best Product Seller</h3>
+							<hr>
+							<canvas id="pie" class="chart chart-pie" chart-legend="true"
+							  chart-data="data" chart-labels="labels">
+							</canvas> 
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
